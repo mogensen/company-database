@@ -1,0 +1,101 @@
+<!-- TEMPLATES -->
+
+<!-- application template -->
+<script type="text/x-handlebars" id="application">
+	<div class="row">
+		{{outlet}}
+	</div>
+</script>
+
+<!-- companies template -->
+<script type="text/x-handlebars" id="companies">
+
+	<div class="col-md-3">
+		<div>Companies: {{companiesCount}}</div>
+
+		<ul class="companies-listing">
+			{{#each company in controller}}
+			<li>
+			{{#link-to "company" company}}
+			{{company.name}}
+			{{/link-to}}
+			</li>
+			{{else}}
+			<li>no companies… :(</li>
+			{{/each}}
+		</ul>
+		{{#link-to "companies.create" class="create-btn"}} Add company {{/link-to}}
+	</div>
+	{{outlet}}
+
+</script>
+
+<!-- single company template -->
+<script type="text/x-handlebars" id="company">
+	<div class="col-md-6">
+		<div class="companie-profile">
+			{{#if deleteMode}}
+			<div class="confirm-box">
+				<h5>Really?</h5>
+				<button class="btn btn-danger pull-right" {{action "confirmDelete"}}> yes </button>
+				<button  class="btn btn-warning pull-right" {{action "cancelDelete"}}> no </button>
+			</div>
+			{{/if}}
+
+			<div >
+			<button class="btn btn-success pull-right"{{action "edit"}}>Edit</button>
+			<button class="btn btn-danger pull-right" {{action "delete"}}>Delete</button>
+			</div>
+
+			<img {{bind-attr src="avatar_url"}}>
+			<h2>{{name}}</h2>
+			<p>{{email}}</p>
+			<p>{{phone}}</p>
+			<p>{{address}}</p>
+			<p>{{city}}</p>
+			<p>{{country}}</p>
+			<span>Created {{formatDate created_at}}</span>
+		</div>
+
+	</div>
+	<div class="col-md-3">
+		{{outlet}}
+	</div>
+</script>
+
+<!-- single company edit template - also used by the create route -->
+<script type="text/x-handlebars" id="company/edit">
+	<div class="company-edit">
+		<div class="form-group">
+			<label>Choose company avatar</label>
+			{{input value=avatar_url}}
+		</div>
+		<div class="form-group">
+			<label>Company name</label>
+			{{input value=name}}
+		</div>
+		<div class="form-group">
+			<label>Email address</label>
+			{{input type="email" value=email}}
+		</div>
+		<div class="form-group">
+			<label>Phone</label>
+			{{input value=phone}}
+		</div>
+		<div class="form-group">
+			<label>Address</label>
+			{{textarea value=address}}
+		</div>
+		<div class="form-group">
+			<label>City</label>
+			{{textarea value=city}}
+		</div>
+		<div class="form-group">
+			<label>Country</label>
+			{{textarea value=country}}
+		</div>
+		<div class="form-group">
+			<button class="btn btn-success " {{action "save"}}> Save </button>
+		</div>
+	</div>
+</script>
