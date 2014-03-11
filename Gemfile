@@ -15,12 +15,6 @@ group :development, :test do
 	gem 'dm-sqlite-adapter'
 end
 
-group :test do
-	gem 'rspec'
-	gem 'rack-test'
-	gem 'dm-sqlite-adapter'
-end
-
 # Heroku uses Postgres however, so we tell the Gemfile to use Postgres
 # in production instead of SQLite.
 group :production do
