@@ -21,11 +21,13 @@ class CompanyDatabase < Sinatra::Application
 		content_type :json
 
 		@company = Company.new(req_data['company'])
+		
 
 		if @company.save
 			{ :company => @company }.to_json
 		else
-			halt 500
+			# @company.errors.full_messages.to_json
+			halt 422, { :errors => @company.errors.to_h }.to_json
 		end
 	end
 
@@ -40,11 +42,14 @@ class CompanyDatabase < Sinatra::Application
 	put '/companies/:company_id' do
 		content_type :json
 
-		# JSON is sent in the body of the http request.
-		# We need to parse the body from a string into JSON
+		@company = Company.get(Integer(params[:company_id]))
 
-		company.update(req_data["company"])
-		company.to_json
+		if @company.update(req_data["company"])
+			{ :company => @company }.to_json
+		else
+			# @company.errors.full_messages.to_json
+			halt 422, { :errors => @company.errors.to_h }.to_json
+		end
 
 	end
 

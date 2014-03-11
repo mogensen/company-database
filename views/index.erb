@@ -49,49 +49,67 @@
 
 			<img {{bind-attr src="avatar_url"}}>
 			<h2>{{name}}</h2>
+			<p class="inline-help">{{errors.name}}</p>
 			<p>{{email}}</p>
 			<p>{{phone}}</p>
 			<p>{{address}}</p>
+			<p class="inline-help">{{errors.address}}</p>
 			<p>{{city}}</p>
 			<p>{{country}}</p>
 			<span>Created {{formatDate created_at}}</span>
 		</div>
 
 	</div>
-	<div class="col-md-3">
-		{{outlet}}
-	</div>
+	{{outlet}}
 </script>
 
 <!-- single company edit template - also used by the create route -->
 <script type="text/x-handlebars" id="company/edit">
-	<div class="company-edit">
+	<div class="col-md-3">
 		<div class="form-group">
 			<label>Choose company avatar</label>
 			{{input value=avatar_url}}
 		</div>
 		<div class="form-group">
 			<label>Company name</label>
+			<p class="inline-help">
+				{{errors.name}}
+			</p>
 			{{input value=name}}
 		</div>
 		<div class="form-group">
 			<label>Email address</label>
+			<p class="inline-help">
+				{{errors.email}}
+			</p>
 			{{input type="email" value=email}}
 		</div>
 		<div class="form-group">
 			<label>Phone</label>
+			<p class="inline-help">
+				{{errors.phone}}
+			</p>
 			{{input value=phone}}
 		</div>
 		<div class="form-group">
 			<label>Address</label>
+			<p class="inline-help">
+				{{errors.address}}
+			</p>
 			{{textarea value=address}}
 		</div>
 		<div class="form-group">
 			<label>City</label>
+			<p class="inline-help">
+				{{errors.city}}
+			</p>
 			{{textarea value=city}}
 		</div>
 		<div class="form-group">
 			<label>Country</label>
+			<p class="inline-help">
+				{{errors.country}}
+			</p>
 			{{textarea value=country}}
 		</div>
 		<div class="form-group">

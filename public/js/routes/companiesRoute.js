@@ -1,5 +1,5 @@
 /*
- * routes/companiesRoute.js 
+ * routes/companiesRoute.js
  */
 
 App.CompaniesRoute = Em.Route.extend({
@@ -17,7 +17,7 @@ App.CompanyRoute = Em.Route.extend({
 
 // singe company edit form route
 App.CompanyEditRoute = Em.Route.extend({
-	model: function(){ 
+	model: function(){
 		return this.modelFor('company');
 	}
 });

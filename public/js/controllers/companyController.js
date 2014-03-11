@@ -42,8 +42,10 @@ App.CompanyEditController = Em.ObjectController.extend({
 	actions: {
 		save: function(){
 			var company = this.get('model');
-			company.save();
-			this.transitionToRoute('company', company);
+			if (company.get('isValid')) {
+				company.save();
+				this.transitionToRoute('company', company);
+			}
 		}
 	}
 });
@@ -58,10 +60,13 @@ App.CompaniesCreateController = Em.ObjectController.extend({
 
 			// save and commit
 			var newCompany = this.store.createRecord('company', this.get('model'));
-			newCompany.save();
 
-			// redirects to the company itself
-			this.transitionToRoute('company', newCompany);
+			if (newCompany.get('isValid')) {
+				newCompany.save();
+				this.transitionToRoute('company', newCompany);
+			} else {
+				this.transitionToRoute('company.edit', newCompany);
+			}
 		}
 	}
 });
