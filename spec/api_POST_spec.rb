@@ -1,15 +1,14 @@
-ENV['RACK_ENV'] = 'test'
-
 require 'spec_helper.rb'
 
-describe 'API' do
+describe 'API POST' do
 
 	before(:each) do
 		# cleanup database
+		Director.all.destroy
 		Company.all.destroy
 	end
 
-	it "POST /companies" do
+	it "should add a new company at endpoint /companies" do
 		Company.count.should == 0
 
 		# POST request, for create Company with 'name' parametr
@@ -33,7 +32,7 @@ describe 'API' do
 		Company.first.country.should == 'Denmark'
 	end
 
-	it "POST /companies without name returns error" do
+	it "without name returns error at endpoint /companies" do
 		Company.count.should == 0
 
 		# POST request, for create Company with 'name' parametr
@@ -54,12 +53,12 @@ describe 'API' do
 		Company.count.should == 0
 	end
 
-	it "POST /companies without address returns error" do
+	it "without address returns error at endpoint /companies" do
 		Company.count.should == 0
 
 		# POST request, for create Company with 'name' parametr
 		c = {
-			:name => 'Company 1',
+			:name => 'Company 2',
 			:city => 'Aarhus',
 			:country => 'Denmark'}
 		json = { :company => c}
@@ -75,12 +74,12 @@ describe 'API' do
 		Company.count.should == 0
 	end
 
-	it "POST /companies without city returns error" do
+	it "without city returns error at endpoint /companies" do
 		Company.count.should == 0
 
 		# POST request, for create Company with 'name' parametr
 		c = {
-			:name => 'Company 1',
+			:name => 'Company 2',
 			:address => 'Langelandsgade 9',
 			:country => 'Denmark'}
 		json = { :company => c}
@@ -96,12 +95,12 @@ describe 'API' do
 		Company.count.should == 0
 	end
 
-	it "POST /companies without country returns error" do
+	it "without country returns error at endpoint /companies" do
 		Company.count.should == 0
 
 		# POST request, for create Company with 'name' parametr
 		c = {
-			:name => 'Company 1',
+			:name => 'Company 3',
 			:address => 'Langelandsgade 9',
 			:city => 'Aarhus'}
 		json = { :company => c}

@@ -12,7 +12,7 @@ class Company
 	property :phone,      String,  :length => 255
 	property :avatar_url, String,  :length => 255
 
-	#has n, :directors
+	has n, :directors
 	#has n, :owners
 
 	is_versioned :on => :updated_at

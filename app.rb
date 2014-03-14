@@ -5,5 +5,6 @@ Bundler.require
 
 require_relative 'models/init'
 require_relative 'routes/main'
-require_relative 'routes/json-api'
+require_relative 'routes/company-api'
+require_relative 'routes/director-api'
 require_relative 'helpers/accessors'

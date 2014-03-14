@@ -2,6 +2,7 @@
  * models/companie.js 
  */
 // the model for a company
+App.Version = DS.Model.extend();
 App.Company = DS.Model.extend(Ember.Validations.Mixin, {
 	name         : DS.attr('string'),
 	address      : DS.attr('string'),

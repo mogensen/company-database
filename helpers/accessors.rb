@@ -4,6 +4,6 @@ helpers do
 	end
 
 	def director
-		@director ||= company.directors.find(params[:director_id]) || halt(404)
+		@director ||= Director.get(Integer(params[:director_id])) || halt(404)
 	end
 end

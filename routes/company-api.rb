@@ -21,7 +21,7 @@ class CompanyDatabase < Sinatra::Application
 		content_type :json
 
 		@company = Company.new(req_data['company'])
-		
+
 
 		if @company.save
 			{ :company => @company }.to_json
@@ -65,9 +65,4 @@ class CompanyDatabase < Sinatra::Application
 		end
 	end
 
-	not_found do
-		'This is nowhere to be found.'
-		#erb :'404'
-		halt 404
-	end
 end

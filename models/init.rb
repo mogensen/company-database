@@ -4,7 +4,7 @@
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqlite")
 
 require_relative 'company'
-# require_relative 'director'
+require_relative 'director'
 # require_relative 'owner'
 
 # Finalize the DataMapper models.
