@@ -18,7 +18,8 @@ class CompanyDatabase < Sinatra::Application
 		if @company.save
 			{ :company => @company }.to_json
 		else
-			# @company.errors.full_messages.to_json
+			# 422 Unprocessable Entity (WebDAV; RFC 4918)
+			# The request was well-formed but was unable to be followed due to semantic errors.
 			halt 422, { :errors => @company.errors.to_h }.to_json
 		end
 	end
@@ -36,12 +37,16 @@ class CompanyDatabase < Sinatra::Application
 
 		@company = Company.get(Integer(params[:company_id]))
 
-		if @company.update(req_data["company"])
-			{ :company => @company }.to_json
-		else
-			# @company.errors.full_messages.to_json
-			halt 422, { :errors => @company.errors.to_h }.to_json
+		begin
+			@company.update(req_data["company"])
+		rescue Exception=>e
+			error = e.message
+			# 422 Unprocessable Entity (WebDAV; RFC 4918)
+			# The request was well-formed but was unable to be followed due to semantic errors.
+			halt 422, { :errors => error }.to_json
 		end
+
+		{ :company => @company }.to_json
 
 	end
 

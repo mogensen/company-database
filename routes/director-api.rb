@@ -20,7 +20,6 @@ class CompanyDatabase < Sinatra::Application
 			company.directors.push(@director)
 			{ :director => @director }.to_json
 		else
-			# @company.errors.full_messages.to_json
 			halt 422, { :errors => @director.errors.to_h }.to_json
 		end
 	end
@@ -36,15 +35,17 @@ class CompanyDatabase < Sinatra::Application
 	put '/companies/:company_id/directors/:director_id' do
 		content_type :json
 
-		@company = Director.get(Integer(params[:director_id]))
+		@director = Director.get(Integer(params[:director_id]))
 
-		if @company.update(req_data["director"])
-			{ :director => @company }.to_json
-		else
-			# @company.errors.full_messages.to_json
-			halt 422, { :errors => @company.errors.to_h }.to_json
+		begin
+			@director.update(req_data["director"])
+		rescue Exception=>e
+			error = e.message
+			# 422 Unprocessable Entity (WebDAV; RFC 4918)
+			# The request was well-formed but was unable to be followed due to semantic errors.
+			halt 422, { :errors => error }.to_json
 		end
-
+		{ :director => @director }.to_json
 	end
 
 	# DELETE: Route to delete a Director

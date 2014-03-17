@@ -120,4 +120,50 @@ describe 'API DELETE' do
 		Company.first.directors.first.name.should == "Jane Doe"
 
 	end
+
+	it "should delete fail to delete a company that has nested records at endpoint /companies/{id}" do
+		Company.count.should == 0
+
+		# POST request, for create Company with 'name' parametr
+		c = {
+			:name => 'Company 1',
+			:address => 'Langelandsgade 9',
+			:city => 'Aarhus',
+			:country => 'Denmark'}
+		json = { :company => c}
+
+		post '/companies', json.to_json
+		last_response.should be_ok
+
+		# test in database
+		Company.count.should == 1
+
+		d = {
+			:name => 'Peter',
+			:address => 'Directorstreet 2',
+			:city => 'Aars',
+			:country => 'Denmark'}
+		d1 = Company.first.directors.create(d)
+
+		Company.first.directors.count.should == 1
+
+		d = {
+			:name => 'Jane Doe',
+			:address => 'Directorstreet 3',
+			:city => 'Aars',
+			:country => 'Denmark'}
+		d2 = Company.first.directors.create(d)
+
+		Company.first.directors.count.should == 2
+
+		# Deleting director d1
+		delete "/companies/#{Company.first.id}"
+		last_response.status.should eql 500
+
+		# Still exists a company
+		Company.count.should == 1
+
+		# Still two directors left
+		Company.first.directors.count.should == 2
+	end
 end
