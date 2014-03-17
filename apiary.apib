@@ -47,7 +47,7 @@ directors and owners.
                 "company" : {
                     "created_at" : "2014-03-07T12:48:15+01:00",
                     "name"       : "Mogensen Consulting",
-                    "phone"      : 98989898,
+                    "phone"      : "98989898",
                     "email"      : "Frede@server-1.dk",
                     "city"       : "Aarhus C",
                     "address"    : "Langelandsgade 9",
@@ -57,16 +57,16 @@ directors and owners.
             }
 
 + Response 201 (application/json)
-
+    
     + Body
-
+    
             {
                 "company" : {
                     "id"         : 10,
                     "created_at" : "2014-03-07T12:48:15+01:00",
                     "updated_at" : "2014-03-09T23:39:37+01:00",
                     "name"       : "Mogensen Consulting",
-                    "phone"      : 98989898,
+                    "phone"      : "98989898",
                     "email"      : "Frede@server-1.dk",
                     "city"       : "Aarhus C",
                     "address"    : "Langelandsgade 9",
@@ -91,7 +91,7 @@ A single Company object with all its details
                 "country"    : "Danmark",
                 "avatar_url" : "http://uri.com/img.jpg",
                 "name"       : "Mogensen Consulting",
-                "phone"      : 98989898,
+                "phone"      : "98989898",
                 "email"      : "Frede@server-1.dk",
                 "city"       : "Aarhus C",
                 "address"    : "Langelandsgade 9",
@@ -130,54 +130,60 @@ the company info.
 ### List all Directors of a specific company [GET]
 + Response 200 (application/json)
 
-        {
-            "directors": [
-                {
+    + Body
+
+            {
+                "directors": [
+                    {
+                        "id": 1,
+                        "created_at": "2014-03-07T12:48:15+00:00",
+                        "updated_at": "2014-03-17T12:15:54+00:00",
+                        "name": "Jane Doe",
+                        "address": "Directors Street 9",
+                        "city": "Aarhus C",
+                        "country": "Danmark",
+                        "email": "Jane@Doe.com",
+                        "phone": "98989898",
+                        "company_id": 1
+                    }
+                ]
+            }
+
+### Create a Director [POST]
++ Request (application/json)
+
+    + Body
+
+            {
+                "director" : {
+                    "created_at" : "2014-03-07T12:48:15+01:00",
+                    "name"       : "Jane Doe",
+                    "phone"      : "98989898",
+                    "email"      : "Jane@Doe.com",
+                    "city"       : "Aarhus C",
+                    "address"    : "Directors Street 9",
+                    "country"    : "Danmark"
+                }
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "director": {
                     "id": 1,
-                    "created_at": "2014-03-07T12:48:15+00:00",
+                    "created_at": "2014-03-07T12:48:15+01:00",
                     "updated_at": "2014-03-17T12:15:54+00:00",
                     "name": "Jane Doe",
                     "address": "Directors Street 9",
                     "city": "Aarhus C",
                     "country": "Danmark",
                     "email": "Jane@Doe.com",
-                    "phone": null,
+                    "phone": "98989898",
                     "company_id": 1
                 }
-            ]
-        }
-
-### Create a Director [POST]
-+ Request (application/json)
-
-        {
-            "director" : {
-                "created_at" : "2014-03-07T12:48:15+01:00",
-                "name"       : "Jane Doe",
-                "phone"      : "98989898",
-                "email"      : "Jane@Doe.com",
-                "city"       : "Aarhus C",
-                "address"    : "Directors Street 9",
-                "country"    : "Danmark"
             }
-        }
-
-+ Response 201 (application/json)
-
-        {
-            "director": {
-                "id": 1,
-                "created_at": "2014-03-07T12:48:15+01:00",
-                "updated_at": "2014-03-17T12:15:54+00:00",
-                "name": "Jane Doe",
-                "address": "Directors Street 9",
-                "city": "Aarhus C",
-                "country": "Danmark",
-                "email": "Jane@Doe.com",
-                "phone": "98989898",
-                "company_id": 1
-            }
-        }
 
 ## Director [/companies/{company_id}/directors/{director_id}]
 A single Director object with all its details belonging to a specific Company
