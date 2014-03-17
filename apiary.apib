@@ -70,11 +70,11 @@ directors and owners.
 
 
 
-## Company [/companies/{id}]
+## Company [/companies/{company_id}]
 A single Company object with all its details
 
 + Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Company to perform action with. Has example value.
+    + company_id (required, number, `1`) ... Numeric `id` of the Company to perform action with. Has example value.
 
 ### Retrieve a Company [GET]
 + Response 200 (application/json)
@@ -116,7 +116,11 @@ the company info.
 ### Remove a Company [DELETE]
 + Response 204
 
-## Director Collection [/companies/{id}/directors]
+## Director Collection [/companies/{company_id}/directors]
+
++ Parameters
+    + company_id (required, number, `1`) ... Numeric `id` of the Company to perform action with. Has example value.
+
 ### List all Directors of a specific company [GET]
 + Response 200 (application/json)
 
