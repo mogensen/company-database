@@ -2,6 +2,7 @@ ENV['RACK_ENV'] = 'test'
 
 require 'bundler'
 Bundler.require(:default, :test)
+Coveralls.wear!
 
 
 require File.expand_path '../../app.rb', __FILE__

@@ -12,6 +12,7 @@ gem 'data_mapper'
 group :development, :test do
 	gem 'rspec'
 	gem 'rack-test'
+	gem 'coveralls'
 	gem 'dm-sqlite-adapter'
 end
 
