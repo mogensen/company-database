@@ -1,0 +1,218 @@
+FORMAT: 1A
+HOST: company-database.herokuapp.com
+
+# Company Database -app
+Company API is a small database application to store company addresses and info about 
+directors and owners.
+
+# Company
+
+## Company Collection [/companies]
+### List all Companies [GET]
++ Response 200 (application/json)
+
+        {"companies" : [
+        {
+            "country" : "Danmark",
+            "avatar_url" : "http://medarbejdere.au.dk/.../AU_P287_DK.png",
+            "name" : "AU - Aarhus Universitet",
+            "phone" : null,
+            "email" : "AU@AU.dk",
+            "created_at" : "2014-03-07T12:48:15+01:00",
+            "city" : "Aarhus C",
+            "updated_at" : "2014-03-09T23:39:37+01:00",
+            "id" : 1,
+            "address" : "Ny Munkegade 16"
+        },
+        {
+            "country" : "Danmark",
+            "avatar_url" : null,
+            "name" : "Mogensen Consulting",
+            "phone" : null,
+            "email" : "mail@example.com",
+            "created_at" : "2014-03-07T12:48:15+01:00",
+            "city" : "Aarhus C",
+            "updated_at" : null,
+            "id" : 2,
+            "address" : "My Street 123"
+        }
+        ]}
+
+### Create a Company [POST]
++ Request (application/json)
+
+        {"company" : {
+            "country"    : "Danmark",
+            "avatar_url" : "http://uri.com/img.jpg",
+            "name"       : "Mogensen Consulting",
+            "phone"      : 98989898,
+            "email"      : "Frede@server-1.dk",
+            "created_at" : "2014-03-07T12:48:15+01:00",
+            "city"       : "Aarhus C",
+            "address"    : "Langelandsgade 9"
+        }}
+
++ Response 201 (application/json)
+
+        {"company" : {
+            "country"    : "Danmark",
+            "avatar_url" : "http://uri.com/img.jpg",
+            "name"       : "Mogensen Consulting",
+            "phone"      : 98989898,
+            "email"      : "Frede@server-1.dk",
+            "created_at" : "2014-03-07T12:48:15+01:00",
+            "city"       : "Aarhus C",
+            "address"    : "Langelandsgade 9",
+            "created_at" : "2014-03-07T12:48:15+01:00",
+            "updated_at" : "2014-03-09T23:39:37+01:00",
+            id           : 10
+        }}
+
+
+
+## Company [/companies/{id}]
+A single Company object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Company to perform action with. Has example value.
+
+### Retrieve a Company [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {"company" : {
+                "country"    : "Danmark",
+                "avatar_url" : "http://uri.com/img.jpg",
+                "name"       : "Mogensen Consulting",
+                "phone"      : 98989898,
+                "email"      : "Frede@server-1.dk",
+                "city"       : "Aarhus C",
+                "address"    : "Langelandsgade 9",
+                "created_at" : "2014-03-07T12:48:15+01:00",
+                "updated_at" : "2014-03-09T23:39:37+01:00",
+                id           : 10
+            }}
+
+### Upate a company [PUT]
++ Response 200 (application/json)
+Post a json request with any of the following attributes, to update
+the company info.
+
+    + Body
+
+            {
+                "company" : {
+                    "country"    : "Danmark",
+                    "avatar_url" : "http://uri.com/img.jpg",
+                    "name"       : "Mogensen Consulting",
+                    "phone"      : "98989898",
+                    "email"      : "Frede@server-1.dk",
+                    "city"       : "Aarhus C",
+                    "address"    : "Langelandsgade 9"
+                }
+            }
+
+### Remove a Company [DELETE]
++ Response 204
+
+## Director Collection [/companies/{id}/directors]
+### List all Directors of a specific company [GET]
++ Response 200 (application/json)
+
+        {
+            "directors": [
+                {
+                    "id": 1,
+                    "created_at": "2014-03-07T12:48:15+00:00",
+                    "updated_at": "2014-03-17T12:15:54+00:00",
+                    "name": "Jane Doe",
+                    "address": "Directors Street 9",
+                    "city": "Aarhus C",
+                    "country": "Danmark",
+                    "email": "Jane@Doe.com",
+                    "phone": null,
+                    "company_id": 1
+                }
+            ]
+        }
+
+### Create a Director [POST]
++ Request (application/json)
+
+        {
+            "director" : {
+                "created_at" : "2014-03-07T12:48:15+01:00",
+                "name"       : "Jane Doe",
+                "phone"      : "98989898",
+                "email"      : "Jane@Doe.com",
+                "city"       : "Aarhus C",
+                "address"    : "Directors Street 9",
+                "country"    : "Danmark"
+            }
+        }
+
++ Response 201 (application/json)
+
+        {
+            "director": {
+                "id": 1,
+                "created_at": "2014-03-07T12:48:15+01:00",
+                "updated_at": "2014-03-17T12:15:54+00:00",
+                "name": "Jane Doe",
+                "address": "Directors Street 9",
+                "city": "Aarhus C",
+                "country": "Danmark",
+                "email": "Jane@Doe.com",
+                "phone": "98989898",
+                "company_id": 1
+            }
+        }
+
+## Director [/companies/{company_id}/directors/{director_id}]
+A single Director object with all its details belonging to a specific Company
+
++ Parameters
+    + company_id (required, number, `1`) ... Numeric `id` of the Company to perform action with. Has example value.
+    + director_id (required, number, `1`) ... Numeric `id` of the Director to perform action with. Has example value.
+    
+### Retrieve a Director [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "director": {
+                    "id": 1,
+                    "created_at": "2014-03-07T12:48:15+00:00",
+                    "updated_at": "2014-03-17T12:15:54+00:00",
+                    "name": "Jane Doe",
+                    "address": "Directors Street 9",
+                    "city": "Aarhus C",
+                    "country": "Danmark",
+                    "email": "Jane@Doe.com",
+                    "phone": "67676767",
+                    "company_id": 1
+                }
+            }
+
+### Upate a Director [PUT]
++ Response 200 (application/json)
+Post a json request with any of the following attributes, to update
+the director info.
+
+    + Body
+
+            {
+                "director" : {
+                    "name": "Jane Doe",
+                    "address": "Directors Street 9",
+                    "city": "Aarhus C",
+                    "country": "Danmark",
+                    "email": "Jane@Doe.com",
+                    "phone": "67676767"
+                }
+            }
+
+### Remove a Director [DELETE]
++ Response 204
