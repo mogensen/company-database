@@ -25,7 +25,6 @@ class CompanyDatabase < Sinatra::Application
 		end
 	end
 
-
 	# READ: Route to show a specific Company based on its `id`
 	get '/companies/:company_id/directors/:director_id' do
 		content_type :json
@@ -47,4 +46,16 @@ class CompanyDatabase < Sinatra::Application
 		end
 
 	end
+
+	# DELETE: Route to delete a Director
+	delete '/companies/:company_id/directors/:director_id' do
+		content_type :json
+
+		{ :url => "/companies/#{company.id}/directors"}
+
+		if ! director.destroy
+			halt 500
+		end
+	end
+
 end
