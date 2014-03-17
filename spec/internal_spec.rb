@@ -38,7 +38,15 @@ describe 'Internally' do
 
 		c1.directors.first.name.should == 'Peter'
 		c1.directors.first.city.should == 'Aars'
+	end
 
+	it "should return 404 if page does not exist" do
+
+		get "/itAintHere"
+		last_response.status.should eql 404
+
+		get "/thisAintEither"
+		last_response.status.should eql 404
 	end
 
 end
